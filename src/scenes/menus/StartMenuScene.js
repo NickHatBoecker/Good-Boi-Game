@@ -1,0 +1,77 @@
+import BaseScene from '@/scenes/BaseScene'
+import DynamicTextBox from '@/classes/DynamicTextBox'
+import { MAP_KEY as GAME_SCENE } from '@/scenes/GameScene'
+import { MAP_KEY as CREDITS_SCENE } from '@/scenes/CreditsScene'
+import { centerHorizontallyInCanvas } from '@/utils/position'
+import { getNextOrReturnIndex, getPreviousOrReturnIndex, updateOutline } from '@/utils/menu'
+import { EVENT_UP, EVENT_DOWN, EVENT_INTERACT } from '@/plugins/NhbControlsPlugin'
+
+export const MAP_KEY = 'StartMenuScene'
+
+export default class StartMenuScene extends BaseScene {
+    constructor () {
+        super(MAP_KEY)
+
+        this.buttons = []
+        this.activeButtonIndex = 0
+    }
+
+    create () {
+        this.buttons = this._initButtons()
+        updateOutline(this, this.buttons, this.activeButtonIndex)
+
+        // Events
+        this.events.on(EVENT_UP, this._selectPreviousButton, this)
+        this.events.on(EVENT_DOWN, this._selectNextButton, this)
+        this.events.once(EVENT_INTERACT, () => {
+            this.buttons[this.activeButtonIndex].onInteract.bind(this)()
+        })
+    }
+
+    _initButtons () {
+        const textStyle = { fontSize: 20, align: 'center' }
+        const startButton = new DynamicTextBox({
+            scene: this,
+            x: 0,
+            y: 100,
+            width: 350,
+            text: 'START GAME',
+            textStyle,
+        })
+
+        const creditsButton = new DynamicTextBox({
+            scene: this,
+            x: startButton.x,
+            y: startButton.y + startButton.displayHeight + 30,
+            width: startButton.width,
+            text: 'CREDITS',
+            textStyle,
+        })
+
+        centerHorizontallyInCanvas(startButton)
+        centerHorizontallyInCanvas(creditsButton)
+
+        return [
+            { element: startButton, onInteract: this._onStart },
+            { element: creditsButton, onInteract: this._onCredits },
+        ]
+    }
+
+    _onStart () {
+        this.scene.start(GAME_SCENE)
+    }
+
+    _onCredits () {
+        this.scene.start(CREDITS_SCENE)
+    }
+
+    _selectPreviousButton () {
+        this.activeButtonIndex = getPreviousOrReturnIndex(this.buttons, this.activeButtonIndex)
+        updateOutline(this, this.buttons, this.activeButtonIndex)
+    }
+
+    _selectNextButton () {
+        this.activeButtonIndex = getNextOrReturnIndex(this.buttons, this.activeButtonIndex)
+        updateOutline(this, this.buttons, this.activeButtonIndex)
+    }
+}

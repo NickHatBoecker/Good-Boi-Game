@@ -1,0 +1,42 @@
+{
+    "name": "kassen-simulator",
+    "description": "A pixelart simulation with PhaserJS 3",
+    "version": "1.0.0",
+    "author": "Nick Böcker <info@nick-hat-boecker.de>",
+    "license": "MIT",
+    "main": "index.js",
+    "scripts": {
+        "dev": "cross-env NODE_ENV=development webpack serve --config webpack.config.js --host 0.0.0.0",
+        "build": "cross-env NODE_ENV=production yarn build:cleanup && webpack --config webpack.config.js",
+        "build:cleanup": "cross-env NODE_ENV=production del-cli './dist/*' --force",
+        "lint": "eslint --ext .js ."
+    },
+    "dependencies": {
+        "phaser": "3.52.0",
+        "phaser3-rex-plugins": "^1.1.59",
+        "ramda": "^0.27.1",
+        "webfontloader": "^1.6.28"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.13.10",
+        "@babel/plugin-proposal-class-properties": "^7.13.0",
+        "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+        "@babel/plugin-transform-runtime": "^7.13.10",
+        "@babel/preset-env": "^7.13.10",
+        "babel-eslint": "^10.1.0",
+        "babel-loader": "^8.2.2",
+        "copy-webpack-plugin": "7.0.0",
+        "cross-env": "^7.0.3",
+        "del-cli": "^3.0.1",
+        "eslint": "^7.30.0",
+        "eslint-config-standard": "^16.0.3",
+        "eslint-plugin-import": "^2.23.4",
+        "eslint-plugin-node": "^11.1.0",
+        "eslint-plugin-promise": "^5.1.0",
+        "eslint-webpack-plugin": "^2.5.4",
+        "html-webpack-plugin": "^5.3.1",
+        "webpack": "5.22.0",
+        "webpack-cli": "4.9.0",
+        "webpack-dev-server": "3.11.2"
+    }
+}
