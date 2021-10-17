@@ -44,6 +44,6 @@ export const updateOutline = (scene, list, currentItemIndex) => {
 
     scene.plugins.get('rexOutlinePipeline').add(activeItem.element, {
         thickness: 6,
-        outlineColor: 0xFFFF00,
+        outlineColor: 0xeeeeee,
     })
 }

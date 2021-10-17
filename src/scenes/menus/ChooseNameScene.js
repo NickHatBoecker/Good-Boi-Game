@@ -1,7 +1,8 @@
 import BaseScene from '@/scenes/BaseScene'
 import { EVENT_UP, EVENT_DOWN, EVENT_LEFT, EVENT_RIGHT, EVENT_INTERACT } from '@/plugins/NhbControlsPlugin'
 import { MAP_KEY as GAME_SCENE } from '@/scenes/GameScene'
-import { DEFAULT_FONT } from '@/utils/config'
+import { CANVAS_HEIGHT, CANVAS_WIDTH, DEFAULT_FONT } from '@/utils/config'
+import comprehensiveEventEmitter from '@/utils/comprehensive-event-emitter'
 
 export const MAP_KEY = 'ChooseNameScene'
 
@@ -25,6 +26,8 @@ export default class ChooseNameScene extends BaseScene {
     }
 
     create () {
+        this.add.rectangle(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT, 0x000000).setOrigin(0, 0)
+
         this.useUppercase = true
         this.charObjects = []
         this.charsPerRow = 10
@@ -48,19 +51,19 @@ export default class ChooseNameScene extends BaseScene {
 
         setTimeout(() => {
             // We need this timeout otherwise the ENTER from startMenuScene triggers an A here
-            this.events.on(EVENT_UP, () => { this._onUp() })
-            this.events.on(EVENT_RIGHT, () => { this._onRight() })
-            this.events.on(EVENT_DOWN, () => { this._onDown() })
-            this.events.on(EVENT_LEFT, () => { this._onLeft() })
-            this.events.on(EVENT_INTERACT, () => { this._onEnter() })
+            this.events.on(EVENT_UP, this._onUp, this)
+            this.events.on(EVENT_RIGHT, this._onRight, this)
+            this.events.on(EVENT_DOWN, this._onDown, this)
+            this.events.on(EVENT_LEFT, this._onLeft, this)
+            this.events.on(EVENT_INTERACT, this._onEnter, this)
         }, 500)
 
         this.events.once('shutdown', () => {
-            this.events.off(EVENT_UP, () => { this._onUp() })
-            this.events.off(EVENT_RIGHT, () => { this._onRight() })
-            this.events.off(EVENT_DOWN, () => { this._onDown() })
-            this.events.off(EVENT_LEFT, () => { this._onLeft() })
-            this.events.off(EVENT_INTERACT, () => { this._onInteract() })
+            this.events.off(EVENT_UP, this._onUp, this)
+            this.events.off(EVENT_RIGHT, this._onRight, this)
+            this.events.off(EVENT_DOWN, this._onDown, this)
+            this.events.off(EVENT_LEFT, this._onLeft, this)
+            this.events.off(EVENT_INTERACT, this._onInteract, this)
         })
     }
 
@@ -100,7 +103,7 @@ export default class ChooseNameScene extends BaseScene {
             this.charObjects.push(letter)
         }
 
-        return this.add.container(130, 200, this.charObjects)
+        return this.add.container(130, 50, this.charObjects)
     }
 
     _toggleUppercase () {
@@ -115,8 +118,8 @@ export default class ChooseNameScene extends BaseScene {
         })
     }
 
-    _savePetName (playerName) {
-        // TODO this.store.commit('setPlayerName', playerName)
+    _savePetName (petName) {
+        comprehensiveEventEmitter.emit('onNameChosen', petName)
     }
 
     _getTextStyle () {
@@ -149,7 +152,6 @@ export default class ChooseNameScene extends BaseScene {
 
         if (this.cursor.y >= 2 && this.cursor.x > 7) {
             for (let i = 0; i < (this.cursor.x - 7); i += 1) { // eslint-disable-line
-                console.log(i)
                 this.charHighlight.x -= CHAR_HIGHLIGHT_X_STEP
             }
             this.cursor.x = 7

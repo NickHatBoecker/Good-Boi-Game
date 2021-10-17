@@ -1,6 +1,6 @@
 import Phaser from 'phaser'
 import { mergeLeft } from 'ramda'
-import { TILE_SIZE } from '@/utils/config'
+import { DEFAULT_FONT, TILE_SIZE } from '@/utils/config'
 
 const ID = 'dynamicBox'
 
@@ -8,7 +8,7 @@ export default class DynamicTextBox extends Phaser.GameObjects.Container {
     constructor ({ scene, x, y, width, text, textStyle, minHeight }) {
         super(scene, 0, 0, [])
 
-        this.backgroundColor = 0x3b404d
+        this.backgroundColor = 0x101010
         this.textPadding = 20
         this.textStyle = textStyle || {}
 
@@ -90,7 +90,8 @@ export default class DynamicTextBox extends Phaser.GameObjects.Container {
 
     _getTextStyle (width) {
         return mergeLeft(this.textStyle, {
-            fontSize: 20,
+            fontFamily: DEFAULT_FONT,
+            fontSize: 18,
             lineSpacing: 10,
             wordWrap: { width },
             align: 'left',

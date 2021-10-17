@@ -6,6 +6,7 @@ import StartMenuScene from '@/scenes/menus/StartMenuScene'
 import ChooseNameScene from '@/scenes/menus/ChooseNameScene'
 import CreditsScene from '@/scenes/CreditsScene'
 import GameScene from '@/scenes/GameScene'
+import GameOverScene from '@/scenes/GameOverScene'
 
 const gameConfig = {
     title: 'Good boi',
@@ -15,9 +16,10 @@ const gameConfig = {
     type: Phaser.AUTO,
     scene: [
         StartMenuScene,
-        ChooseNameScene,
         CreditsScene,
         GameScene,
+        ChooseNameScene,
+        GameOverScene,
     ],
     scale: {
         mode: Phaser.Scale.FIT,
