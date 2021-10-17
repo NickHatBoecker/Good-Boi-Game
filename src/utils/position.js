@@ -22,3 +22,13 @@ export const centerInCanvas = (element) => {
 export const centerHorizontallyInCanvas = (element) => {
     element.setX((CANVAS_WIDTH / 2) - (element.width / 2))
 }
+
+/**
+ * Center an element horizontally in a container.
+ * Element has to have `displayWidth` attribute.
+ *
+ * @param element
+ */
+export const centerHorizontallyInContainer = (element, container) => {
+    element.setX((container.displayWidth / 2) - (element.displayWidth / 2))
+}
