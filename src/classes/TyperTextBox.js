@@ -28,7 +28,6 @@ export default class TyperTextBox extends DynamicTextBox {
     }
 
     _onInteract () {
-        console.log('hallo?')
         if (!this.textElement.animationHasFinished) return
 
         this.scene.events.off(EVENT_INTERACT, this._onInteract, this)

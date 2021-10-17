@@ -43,7 +43,7 @@ export default class ChooseNameScene extends BaseScene {
         this.add.image(this.inputChars.x + ((this.charsPerRow - 2) * charSize), this.inputChars.y + (charsPerColumn * charSize), 'ok')
 
         this.petName = ''
-        this.petNameText = this.add.text(this.inputChars.x, 310, this._calculateElementText(), this._getTextStyle()).setTint(0xffffff).setResolution(10) // @TODO very CPU intensive
+        this.petNameText = this.add.text(this.inputChars.x, this.inputChars.y + 250, this._calculateElementText(), this._getTextStyle()).setTint(0xffffff).setResolution(10) // @TODO very CPU intensive
         this.charHighlight = this.add.image(this.inputChars.x - 10, this.inputChars.y, 'block').setOrigin(0)
 
         setTimeout(() => {
@@ -100,7 +100,7 @@ export default class ChooseNameScene extends BaseScene {
             this.charObjects.push(letter)
         }
 
-        return this.add.container(130, 50, this.charObjects)
+        return this.add.container(130, 200, this.charObjects)
     }
 
     _toggleUppercase () {

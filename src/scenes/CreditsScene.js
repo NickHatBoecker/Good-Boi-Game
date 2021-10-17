@@ -11,6 +11,8 @@ export default class CreditsScene extends BaseScene {
     }
 
     create () {
+        // @TODO doggo credits - https://elska.itch.io/16x16-dog
+
         this.add.text(200, 200, '@TODO CREDITS', {
             fontSize: 30,
             lineSpacing: 10,
