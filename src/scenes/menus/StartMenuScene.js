@@ -30,7 +30,7 @@ export default class StartMenuScene extends BaseScene {
         this.events.once('shutdown', () => {
             this.events.off(EVENT_UP, this._selectPreviousButton, this)
             this.events.off(EVENT_UP, this._selectNextButton, this)
-            this.events.off(EVENT_UP, this._onInteract, this)
+            this.events.off(EVENT_INTERACT, this._onInteract, this)
         })
     }
 
