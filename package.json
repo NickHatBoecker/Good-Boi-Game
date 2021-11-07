@@ -1,6 +1,6 @@
 {
-    "name": "kassen-simulator",
-    "description": "A pixelart simulation with PhaserJS 3",
+    "name": "@nhb/good-boi",
+    "description": "One minute PhaserJS game, created for One Minute Game Jam",
     "version": "1.0.0",
     "author": "Nick Böcker <info@nick-hat-boecker.de>",
     "license": "MIT",
