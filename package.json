@@ -9,6 +9,7 @@
         "dev": "cross-env NODE_ENV=development webpack serve --config webpack.config.js --host 0.0.0.0",
         "build": "cross-env NODE_ENV=production yarn build:cleanup && webpack --config webpack.config.js",
         "build:cleanup": "cross-env NODE_ENV=production del-cli './dist/*' --force",
+        "bzip": "cross-env NODE_ENV=production yarn build && cd dist && zip -r Game.zip *",
         "lint": "eslint --ext .js ."
     },
     "dependencies": {
