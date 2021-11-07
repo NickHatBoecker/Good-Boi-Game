@@ -1,6 +1,5 @@
 import BaseScene from '@/scenes/BaseScene'
 import { EVENT_UP, EVENT_DOWN, EVENT_LEFT, EVENT_RIGHT, EVENT_INTERACT } from '@/plugins/NhbControlsPlugin'
-import { MAP_KEY as GAME_SCENE } from '@/scenes/GameScene'
 import { CANVAS_HEIGHT, CANVAS_WIDTH, DEFAULT_FONT } from '@/utils/config'
 import comprehensiveEventEmitter from '@/utils/comprehensive-event-emitter'
 
@@ -26,6 +25,8 @@ export default class ChooseNameScene extends BaseScene {
     }
 
     create () {
+        super.create()
+
         this.add.rectangle(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT, 0x000000).setOrigin(0, 0)
 
         this.useUppercase = true
@@ -118,10 +119,6 @@ export default class ChooseNameScene extends BaseScene {
         })
     }
 
-    _savePetName (petName) {
-        comprehensiveEventEmitter.emit('onNameChosen', petName)
-    }
-
     _getTextStyle () {
         return {
             fontSize: 30,
@@ -135,6 +132,7 @@ export default class ChooseNameScene extends BaseScene {
 
         this.cursor.y--
         this.charHighlight.y -= CHAR_HIGHLIGHT_Y_STEP
+        this.clickSound.play()
     }
 
     _onRight () {
@@ -142,6 +140,7 @@ export default class ChooseNameScene extends BaseScene {
 
         this.cursor.x++
         this.charHighlight.x += CHAR_HIGHLIGHT_X_STEP
+        this.clickSound.play()
     }
 
     _onDown () {
@@ -156,6 +155,8 @@ export default class ChooseNameScene extends BaseScene {
             }
             this.cursor.x = 7
         }
+
+        this.clickSound.play()
     }
 
     _onLeft () {
@@ -163,6 +164,7 @@ export default class ChooseNameScene extends BaseScene {
 
         this.cursor.x--
         this.charHighlight.x -= CHAR_HIGHLIGHT_X_STEP
+        this.clickSound.play()
     }
 
     _calculateElementText () {
@@ -183,8 +185,7 @@ export default class ChooseNameScene extends BaseScene {
 
         if (isOk) {
             if (this.petName.length > 0) {
-                this._savePetName(this.petName)
-                this.scene.start(GAME_SCENE)
+                comprehensiveEventEmitter.emit('onNameChosen', this.petName)
             }
         } else if (isBack) {
             if (this.petName.length > 0) {
@@ -209,5 +210,7 @@ export default class ChooseNameScene extends BaseScene {
             this.petName = this.petName.concat(char)
             this.petNameText.text = this._calculateElementText()
         }
+
+        this.clickSound.play()
     }
 }

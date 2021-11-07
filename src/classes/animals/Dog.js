@@ -1,15 +1,23 @@
 import Phaser from 'phaser'
+import { TILE_SIZE } from '@/utils/config'
 
 export default class Dog {
-    constructor () {
+    preload (scene) {
         const dogPath = 'assets/images/animals/dog'
 
-        this.spriteSheets = [
+        const spriteSheets = [
             { id: 'animal_idle', path: `${dogPath}/Dog_Pose_Idle_sw.png` },
             { id: 'animal_run', path: `${dogPath}/Dog_Run_sw.png` },
-            { id: 'animal_sit_idle', path: `${dogPath}/Dog_Sit_Idle.png` },
-            { id: 'animal_stand_idle', path: `${dogPath}/Dog_Stand_Idle.png` },
         ]
+
+        spriteSheets.forEach(({ id, path }) => {
+            scene.load.spritesheet(id, path, {
+                frameWidth: TILE_SIZE,
+                frameHeight: TILE_SIZE,
+            })
+        })
+
+        scene.load.audio('animal_sound', 'assets/audio/dog-bark.wav')
     }
 
     initAnimalAnimations (scene) {

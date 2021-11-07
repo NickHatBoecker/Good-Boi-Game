@@ -12,7 +12,7 @@ export default class TextboxEvent {
         })
 
         scene.events.once('onTextboxClose', () => {
-            // @TODO play sound effect
+            scene.clickSound.play()
             scene.events.emit('doNextEvent')
         })
     }

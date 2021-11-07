@@ -17,10 +17,10 @@ export default class StartMenuScene extends BaseScene {
     }
 
     create () {
+        super.create()
+
         this.buttons = this._initButtons()
         updateOutline(this, this.buttons, this.activeButtonIndex)
-
-        // @TODO play music
 
         // Events
         this.events.on(EVENT_UP, this._selectPreviousButton, this)
@@ -35,6 +35,7 @@ export default class StartMenuScene extends BaseScene {
     }
 
     _onInteract () {
+        this.clickSound.play()
         this.buttons[this.activeButtonIndex].onInteract.bind(this)()
     }
 
@@ -76,13 +77,13 @@ export default class StartMenuScene extends BaseScene {
     }
 
     _selectPreviousButton () {
-        // @TODO play sound effect
+        this.clickSound.play()
         this.activeButtonIndex = getPreviousOrReturnIndex(this.buttons, this.activeButtonIndex)
         updateOutline(this, this.buttons, this.activeButtonIndex)
     }
 
     _selectNextButton () {
-        // @TODO play sound effect
+        this.clickSound.play()
         this.activeButtonIndex = getNextOrReturnIndex(this.buttons, this.activeButtonIndex)
         updateOutline(this, this.buttons, this.activeButtonIndex)
     }

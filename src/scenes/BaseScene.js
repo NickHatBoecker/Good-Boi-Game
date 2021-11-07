@@ -14,6 +14,13 @@ export default class BaseScene extends Phaser.Scene {
     preload () {
         this.load.addFile(new FontLoader(this.load, DEFAULT_FONT))
 
+        if (!this.clickSound) {
+            this.load.audio('clickSound', 'assets/audio/click.wav')
+        }
+        if (!this.gameMusic) {
+            this.load.audio('gameMusic', 'assets/audio/8bit-love.mp3')
+        }
+
         // Preload dynamic box sprites
         if (!this.textures.exists('dynamicBox')) {
             this.load.spritesheet('dynamicBox', 'assets/images/window-frame.png', {
@@ -21,6 +28,11 @@ export default class BaseScene extends Phaser.Scene {
                 frameHeight: TILE_SIZE,
             })
         }
+    }
+
+    create () {
+        this.clickSound = this.sound.add('clickSound')
+        this.gameMusic = this.sound.add('gameMusic')
     }
 
     update () {

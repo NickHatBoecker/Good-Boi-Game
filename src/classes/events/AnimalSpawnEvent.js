@@ -8,7 +8,9 @@ export default class AnimalSpawnEvent {
 
             centerHorizontallyInCanvas(scene.animal)
 
-            // @TODO play sound: Barking
+            setTimeout(() => {
+                scene.sound.add('animal_sound').play()
+            }, 800)
         }
 
         setTimeout(() => {

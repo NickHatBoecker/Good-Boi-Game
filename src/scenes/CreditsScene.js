@@ -27,24 +27,38 @@ export default class CreditsScene extends BaseScene {
     }
 
     create () {
+        super.create()
+
+        this.gameMusic.play()
+
         this.contentContainer = this._createContentContainer()
 
         // Now scroll the content
         this.tweens.timeScale = TWEEN_SPEED
         this.tweens.add({
             targets: this.contentContainer,
-            y: -500,
+            y: -1200,
             ease: 'Power0',
             duration: 16000,
             delay: 100,
             onComplete: () => {
-                this.scene.start(START_MENU_SCENE)
+                setTimeout(() => this._exit(), 2500)
             },
         })
 
         // Events
-        this.events.once(EVENT_INTERACT, () => {
-            this.scene.start(START_MENU_SCENE)
+        this.events.once(EVENT_INTERACT, this._exit, this)
+    }
+
+    _exit () {
+        this.tweens.add({
+            targets: this.gameMusic,
+            volume: 0,
+            duration: 2000,
+            onComplete: () => {
+                this.gameMusic.stop()
+                this.scene.start(START_MENU_SCENE)
+            },
         })
     }
 
@@ -57,10 +71,10 @@ export default class CreditsScene extends BaseScene {
         const contentItems = [
             { type: 'text', text: 'Idea by\nKiraCaelum & Nick Böcker' },
             { type: 'text', text: 'Game Development\nNick Böcker' },
-            { type: 'text', text: '16x16 Dog by\nElska\nhttps://elska.itch.io/16x16-dog' },
-            // @TODO type text; sfx
-            // @TODO type text; music
-            // @TODO type text; font PressStart?
+            { type: 'text', text: '16x16 Dog\nby Elska\nhttps://elska.itch.io/16x16-dog' },
+            { type: 'text', text: 'Dog bark sound effect\nby mixkit.co\nhttps://mixkit.co' },
+            { type: 'text', text: 'Button sound effect\nby Royalty Free Sound FX\non YouTube' },
+            { type: 'text', text: 'Music: "8 Bit Love"\nby HeatleyBros\nhttps://youtu.be/8_5m4Q4rL1Q' },
             { type: 'text', text: 'Powered by PhaserJS', padding: 20 },
             { type: 'image', spriteId: 'phaser_logo' },
             { type: 'image', spriteId: 'nhb_logo' },
@@ -68,8 +82,6 @@ export default class CreditsScene extends BaseScene {
 
         for (let i = 0; i < contentItems.length; i += 1) {
             const y = i === 0 ? 100 : contentItems[i - 1].element.getBottomCenter().y + (contentItems[i - 1]?.padding || padding)
-            console.log(contentItems[i - 1]?.padding)
-            console.log((contentItems[i - 1]?.padding || padding))
 
             if (contentItems[i].type === 'text') {
                 contentItems[i].element = this.add.text(0, y, contentItems[i].text, this._getTextStyle()).setResolution(10) // @TODO cpu
