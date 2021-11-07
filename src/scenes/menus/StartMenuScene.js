@@ -5,6 +5,7 @@ import { MAP_KEY as CREDITS_SCENE } from '@/scenes/CreditsScene'
 import { centerHorizontallyInCanvas } from '@/utils/position'
 import { getNextOrReturnIndex, getPreviousOrReturnIndex, updateOutline } from '@/utils/menu'
 import { EVENT_UP, EVENT_DOWN, EVENT_INTERACT } from '@/plugins/NhbControlsPlugin'
+import { CANVAS_HEIGHT } from '@/utils/config'
 
 export const MAP_KEY = 'StartMenuScene'
 
@@ -22,6 +23,8 @@ export default class StartMenuScene extends BaseScene {
         this.buttons = this._initButtons()
         updateOutline(this, this.buttons, this.activeButtonIndex)
 
+        this._initControlInstruction()
+
         // Events
         this.events.on(EVENT_UP, this._selectPreviousButton, this)
         this.events.on(EVENT_DOWN, this._selectNextButton, this)
@@ -32,6 +35,17 @@ export default class StartMenuScene extends BaseScene {
             this.events.off(EVENT_UP, this._selectNextButton, this)
             this.events.off(EVENT_INTERACT, this._onInteract, this)
         })
+    }
+
+    _initControlInstruction () {
+        const fontStyle = { fontSize: 8, fontFamily: 'PressStart2P', lineSpacing: 10 }
+        const text = this.add.text(0, 0, 'CONTROLS:\nENTER: Interaction\nWASD/cursors: Navigation', fontStyle)
+            .setResolution(10)
+            .setAlign('center')
+            .setAlpha(0.7)
+        text.setY(CANVAS_HEIGHT - text.displayHeight - 20)
+
+        centerHorizontallyInCanvas(text)
     }
 
     _onInteract () {

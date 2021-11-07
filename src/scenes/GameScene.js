@@ -65,16 +65,16 @@ export default class GameScene extends BaseScene {
         DOG.initAnimalAnimations(this)
 
         this.eventChain = [
-            // { type: 'textbox', options: { text: 'Well hello there and welcome to this pet store! I bet you want to adopt one of our adorable puppies, huh?' } },
-            // { type: 'textbox', options: { text: 'Dogs are a human\'s best friend. So you have to take good care of them. But I\'m pretty sure that you\'re just the right person to adopt a dog.' } },
-            // { type: 'textbox', options: { text: 'Ready to meet your forever friend? Here he comes.' } },
-            // { type: 'spawnAnimal', options: { spriteId: 'animal_idle' } },
-            // { type: 'textbox', options: { text: 'Look at him! Such a good boi, searching for a cozy place, he can call his home. Would you like to give him a name?' } },
-            // { type: 'chooseName', options: {} },
-            // { type: 'textbox', options: { text: '{ANIMAL_NAME}? What a lovely name! He\'s so happy to meet someone, who has some love to spare. Two souls - matching perfectly together.' } },
-            // { type: 'textbox', options: { text: 'But now you have to say goodbye to {ANIMAL_NAME}.' } },
-            // { type: 'textbox', options: { text: 'Because we found a nice family for him and they just arrived in time to bring him home.' } },
-            // { type: 'animalLeave', options: {} },
+            { type: 'textbox', options: { text: 'Well hello there and welcome to this pet store! I bet you want to adopt one of our adorable puppies, huh?' } },
+            { type: 'textbox', options: { text: 'Dogs are a human\'s best friend. So you have to take good care of them. But I\'m pretty sure that you\'re just the right person to adopt a dog.' } },
+            { type: 'textbox', options: { text: 'Ready to meet your forever friend? Here he comes.' } },
+            { type: 'spawnAnimal', options: { spriteId: 'animal_idle' } },
+            { type: 'textbox', options: { text: 'Look at him! Such a good boi, searching for a cozy place, he can call his home. Would you like to give him a name?' } },
+            { type: 'chooseName', options: {} },
+            { type: 'textbox', options: { text: '{ANIMAL_NAME}? What a lovely name! He\'s so happy to meet someone, who has some love to spare. Two souls - matching perfectly together.' } },
+            { type: 'textbox', options: { text: 'But now you have to say goodbye to {ANIMAL_NAME}.' } },
+            { type: 'textbox', options: { text: 'Because we found a nice family for him and they just arrived in time to bring him home.' } },
+            { type: 'animalLeave', options: {} },
             { type: 'textbox', options: { text: 'Bye bye {ANIMAL_NAME}! We\'ll miss you.' } },
             { type: 'gameOver', options: {} },
         ]
